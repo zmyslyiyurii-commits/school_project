@@ -1,17 +1,15 @@
 from django.shortcuts import render, redirect
-from .models import Uroks
-from .forms import UroksForm
+from .models import Uroks, Teacher
+from .forms import UroksForm, TeacherForm
 
-# Головна сторінка проекту
 def home(request):
     return render(request, 'school/home.html')
 
-# Сторінка зі списком предметів
+# Предмети
 def urok_list(request):
     uroks = Uroks.objects.all()
     return render(request, 'school/urok_list.html', {'uroks': uroks})
 
-# Сторінка створення нового предмета
 def urok_create(request):
     if request.method == "POST":
         form = UroksForm(request.POST)
@@ -21,3 +19,18 @@ def urok_create(request):
     else:
         form = UroksForm()
     return render(request, 'school/urok_form.html', {'form': form})
+
+# Вчителі
+def teacher_list(request):
+    teachers = Teacher.objects.all()
+    return render(request, 'school/teacher_list.html', {'teachers': teachers})
+
+def teacher_create(request):
+    if request.method == "POST":
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher_list')
+    else:
+        form = TeacherForm()
+    return render(request, 'school/teacher_form.html', {'form': form})

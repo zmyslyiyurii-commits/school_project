@@ -1,0 +1,16 @@
+{% extends 'school/base.html' %}
+
+{% block content %}
+<div class="card shadow mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+        <h3 class="card-title mb-4">Додати вчителя</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100">Зберегти</button>
+        </form>
+        <hr>
+        <a href="{% url 'teacher_list' %}" class="text-muted">Назад до списку</a>
+    </div>
+</div>
+{% endblock %}
