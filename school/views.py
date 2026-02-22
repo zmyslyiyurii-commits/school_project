@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Uroks, Teacher, SchoolClass
-from .forms import UroksForm, TeacherForm, SchoolClassForm
+from .models import Uroks, Teacher, SchoolClass, Timetable
+from .forms import UroksForm, TeacherForm, SchoolClassForm, TimetableForm
 
 # Головна
 def home(request):
@@ -36,7 +36,7 @@ def teacher_create(request):
         form = TeacherForm()
     return render(request, 'school/teacher_form.html', {'form': form})
 
-# КЛАСИ
+# Класи
 def class_list(request):
     classes = SchoolClass.objects.all()
     return render(request, 'school/class_list.html', {'classes': classes})
@@ -50,3 +50,18 @@ def class_create(request):
     else:
         form = SchoolClassForm()
     return render(request, 'school/class_form.html', {'form': form})
+
+# РОЗКЛАД (Тут були відсутні функції)
+def timetable_list(request):
+    items = Timetable.objects.all().order_by('day', 'lesson_number')
+    return render(request, 'school/timetable_list.html', {'timetable': items})
+
+def timetable_create(request):
+    if request.method == "POST":
+        form = TimetableForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('timetable_list')
+    else:
+        form = TimetableForm()
+    return render(request, 'school/timetable_form.html', {'form': form})

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Uroks, Teacher, SchoolClass
+from .models import Uroks, Teacher, SchoolClass, Timetable
 
 class UroksForm(forms.ModelForm):
     class Meta:
@@ -17,11 +17,21 @@ class TeacherForm(forms.ModelForm):
             'urok': forms.Select(attrs={'class': 'form-select'}),
         }
 
-# НОВА ФОРМА
 class SchoolClassForm(forms.ModelForm):
     class Meta:
         model = SchoolClass
         fields = ['name']
+        widgets = {'name': forms.TextInput(attrs={'class': 'form-control'})}
+
+# ФОРМА РОЗКЛАДУ
+class TimetableForm(forms.ModelForm):
+    class Meta:
+        model = Timetable
+        fields = ['school_class', 'subject', 'teacher', 'day', 'lesson_number']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Напр. 10-А'}),
+            'school_class': forms.Select(attrs={'class': 'form-select'}),
+            'subject': forms.Select(attrs={'class': 'form-select'}),
+            'teacher': forms.Select(attrs={'class': 'form-select'}),
+            'day': forms.Select(attrs={'class': 'form-select'}),
+            'lesson_number': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 8}),
         }
