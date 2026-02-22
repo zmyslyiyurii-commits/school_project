@@ -1,0 +1,29 @@
+{% extends 'school/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📝 Журнал оцінок</h2>
+    <a href="{% url 'grade_create' %}" class="btn btn-success">Поставити оцінку</a>
+</div>
+<table class="table table-bordered bg-white shadow-sm">
+    <thead class="table-warning">
+        <tr>
+            <th>Учень</th>
+            <th>Предмет</th>
+            <th>Оцінка</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grade in grades %}
+        <tr>
+            <td>{{ grade.student }}</td>
+            <td>{{ grade.urok.name }}</td>
+            <td><strong>{{ grade.score }}</strong></td>
+            <td>{{ grade.date|date:"d.m.Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center">Оцінок ще немає</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

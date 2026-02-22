@@ -1,0 +1,12 @@
+{% extends 'school/base.html' %}
+{% block content %}
+<div class="card shadow-sm p-4 border-warning">
+    <h3>🎓 Виставити оцінку</h3>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Виставити</button>
+        <a href="{% url 'grade_list' %}" class="btn btn-secondary">До журналу</a>
+    </form>
+</div>
+{% endblock %}
