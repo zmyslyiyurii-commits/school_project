@@ -1,0 +1,14 @@
+{% extends 'school/base.html' %}
+{% block content %}
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Список класів</h2>
+        <a href="{% url 'class_create' %}" class="btn btn-primary">Додати клас</a>
+    </div>
+    <ul class="list-group">
+        {% for class in classes %}
+            <li class="list-group-item">{{ class.name }}</li>
+        {% empty %}
+            <li class="list-group-item">Класи ще не створені.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

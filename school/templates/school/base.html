@@ -13,10 +13,8 @@
         <a class="navbar-brand" href="{% url 'home' %}">🏫 SchoolAdmin</a>
         <div class="navbar-nav">
             <a class="nav-link" href="{% url 'urok_list' %}">Предмети (Uroks)</a>
-            
             <a class="nav-link" href="{% url 'teacher_list' %}">Вчителі</a>
-            
-            <a class="nav-link" href="#">Класи</a>
+            <a class="nav-link" href="{% url 'class_list' %}">Класи</a>
         </div>
     </div>
 </nav>

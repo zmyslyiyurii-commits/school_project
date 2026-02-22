@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Uroks, Teacher
-from .forms import UroksForm, TeacherForm
+from .models import Uroks, Teacher, SchoolClass
+from .forms import UroksForm, TeacherForm, SchoolClassForm
 
+# Головна
 def home(request):
     return render(request, 'school/home.html')
 
@@ -34,3 +35,18 @@ def teacher_create(request):
     else:
         form = TeacherForm()
     return render(request, 'school/teacher_form.html', {'form': form})
+
+# КЛАСИ
+def class_list(request):
+    classes = SchoolClass.objects.all()
+    return render(request, 'school/class_list.html', {'classes': classes})
+
+def class_create(request):
+    if request.method == "POST":
+        form = SchoolClassForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('class_list')
+    else:
+        form = SchoolClassForm()
+    return render(request, 'school/class_form.html', {'form': form})
