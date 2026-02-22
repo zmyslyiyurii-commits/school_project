@@ -1,0 +1,13 @@
+{% extends 'school/base.html' %}
+
+{% block content %}
+<div class="bg-white p-5 rounded shadow-sm text-center">
+    <h1 class="display-4">Система управління школою</h1>
+    <p class="lead text-muted">Виберіть розділ у меню зверху, щоб почати роботу.</p>
+    <hr class="my-4">
+    <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-outline-primary btn-lg" disabled>Учнів: {{ students_count|default:"0" }}</button>
+        <button class="btn btn-outline-success btn-lg" disabled>Класів: {{ classes_count|default:"0" }}</button>
+    </div>
+</div>
+{% endblock %}
