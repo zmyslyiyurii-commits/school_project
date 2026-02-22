@@ -2,26 +2,40 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Список вчителів</h2>
-    <a href="{% url 'teacher_create' %}" class="btn btn-primary">Додати вчителя</a>
+    <h2>📅 Повний розклад</h2>
+    <a href="{% url 'timetable_create' %}" class="btn btn-primary">Додати запис</a>
 </div>
 
-<table class="table table-hover shadow-sm">
-    <thead class="table-dark">
-        <tr>
-            <th>Прізвище та Ім'я</th>
-            <th>Предмет</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for teacher in teachers %}
-        <tr>
-            <td>{{ teacher.last_name }} {{ teacher.first_name }}</td>
-            <td><span class="badge bg-info text-dark">{{ teacher.urok.name }}</span></td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="2" class="text-center">Вчителів поки немає</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered bg-white shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Клас</th>
+                <th>День</th>
+                <th>№</th>
+                <th>Предмет</th>
+                <th>Вчитель</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in timetable %}
+            <tr>
+                <td><strong>{{ item.school_class.name }}</strong></td>
+                <td>{{ item.get_day_display }}</td>
+                <td>{{ item.lesson_number }}</td>
+                <td>{{ item.subject.name }}</td>
+                <td>{{ item.teacher.last_name }} {{ item.teacher.first_name }}</td>
+                <td>
+                    <a href="{% url 'timetable_delete' item.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Видалити цей урок з розкладу?')">Видалити</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center text-muted">Розклад поки що порожній. Додайте перший урок!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
